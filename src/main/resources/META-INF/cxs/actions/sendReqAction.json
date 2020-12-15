@@ -1,0 +1,8 @@
+﻿{
+  "id": "sendRequestAction",
+  "actionExecutor": "sendRequest",
+  "systemTags": [
+    "event"
+  ],
+  "parameters": []
+}

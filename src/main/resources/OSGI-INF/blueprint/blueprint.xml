@@ -1,0 +1,20 @@
+﻿<blueprint xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://www.osgi.org/xmlns/blueprint/v1.0.0" xsi:schemaLocation="http://www.osgi.org/xmlns/blueprint/v1.0.0 http://www.osgi.org/xmlns/blueprint/v1.0.0/blueprint.xsd">
+	<!-- cfg configuration -->
+	<cm:property-placeholder persistent-id="org.peter.unomi.customwebhook" update-strategy="reload">
+		<cm:default-properties>
+			<cm:property name="customwebhook.url.base" value="" />
+		</cm:default-properties>
+	</cm:property-placeholder>
+
+	<reference id="profileService" interface="org.apache.unomi.api.services.ProfileService" />
+
+	<!-- Action executor -->
+	<service id="sendRequestAction" interface="org.apache.unomi.api.actions.ActionExecutor">
+		<service-properties>
+			<entry key="actionExecutorId" value="sendRequest" />
+		</service-properties>
+		<bean class="org.peter.unomi.customwebhook.actions.SendRequestAction">
+			<property name="customwebhookUrlBase" value="${customwebhook.url.base}"/>
+		</bean>
+	</service>
+</blueprint>
