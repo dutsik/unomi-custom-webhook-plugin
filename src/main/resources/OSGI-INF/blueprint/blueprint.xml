@@ -6,6 +6,7 @@
 	<cm:property-placeholder persistent-id="org.peter.unomi.customwebhook" update-strategy="reload">
 		<cm:default-properties>
 			<cm:property name="customwebhook.url.base" value="" />
+			<cm:property name="unomi.elasticsearch.index.preafix" value="" />
 		</cm:default-properties>
 	</cm:property-placeholder>
 
@@ -17,7 +18,8 @@
 			<entry key="actionExecutorId" value="sendRequest" />
 		</service-properties>
 		<bean class="org.peter.unomi.customwebhook.actions.SendRequestAction">
-			<property name="customwebhookUrlBase" value="${customwebhook.url.base}"/>
+			<property name="customWebhookUrlBase" value="${customwebhook.url.base}"/>
+			<property name="unomi.elasticSearch.index.prefix" value="${env:UNOMI_ELASTICSEARCH_INDEXPREFIX:-context}"/>
 		</bean>
 	</service>
 </blueprint>

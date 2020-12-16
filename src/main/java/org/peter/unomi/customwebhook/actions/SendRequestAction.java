@@ -22,7 +22,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class SendRequestAction implements ActionExecutor {
-    private String customWebHookUrlBase;
+    private String customWebhookUrlBase;
+    private String unomiElasticSearchIndexPreafix;
     private static final String text = "1234567890";
     private static Logger logger = LoggerFactory.getLogger(SendRequestAction.class);
     private CloseableHttpClient httpClient;
@@ -33,7 +34,7 @@ public class SendRequestAction implements ActionExecutor {
             httpClient = HttpClients.createDefault();
             }
         Session session = event.getSession();
-        if (customWebHookUrlBase == null) {
+        if (customWebhookUrlBase == null) {
             logger.warn("Configuration incomplete.");
             return EventService.NO_CHANGE;
         }
@@ -43,7 +44,7 @@ public class SendRequestAction implements ActionExecutor {
         String param1 = eventId + text;
         String md5Hex = DigestUtils
           .md5Hex(param1).toUpperCase();
-        final HttpPost httpPost = new HttpPost(customWebHookUrlBase);
+        final HttpPost httpPost = new HttpPost(customWebhookUrlBase);
         final List<NameValuePair> params = new ArrayList<>();
         params.add(new BasicNameValuePair("accountId", md5Hex));
         params.add(new BasicNameValuePair("eventId", eventId));
