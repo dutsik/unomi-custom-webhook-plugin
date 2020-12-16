@@ -37,12 +37,10 @@ public class SendRequestAction implements ActionExecutor {
     public int execute(Action action, Event event) {
         if (httpClient == null) {
             int timeout = 5;
-            RequestConfig requestConfig = RequestConfig.custom()
-                    .setConnectTimeout(timeout * 1000)
-                    .setConnectionRequestTimeout(timeout * 1000)
-                    .setSocketTimeout(timeout * 1000).build();
+            RequestConfig requestConfig = RequestConfig.custom().setConnectTimeout(timeout * 1000)
+                    .setConnectionRequestTimeout(timeout * 1000).setSocketTimeout(timeout * 1000).build();
             httpClient = HttpClientBuilder.create().setDefaultRequestConfig(requestConfig).build();
-            }
+        }
         Session session = event.getSession();
         if (customWebhookUrlBase == null) {
             logger.warn("customWebhookUrlBase is empty.");
@@ -58,16 +56,14 @@ public class SendRequestAction implements ActionExecutor {
         String accountId = (String) event.getProperty("accountId");
         String eventId = event.getItemId();
         String hash = "35454B055CC325EA1AF2126E27707052";
-        String md5Hex = DigestUtils
-          .md5Hex(eventId).toUpperCase();
-        String param1 = eventId + text;
+        String md5Hex = DigestUtils.md5Hex(eventId).toUpperCase();
+        String param1 = md5Hex + text;
         url = customWebhookUrlBase + webhookName;
         final HttpPost httpPost = new HttpPost(url);
         final List<NameValuePair> params = new ArrayList<>();
         if (accountId != null) {
             params.add(new BasicNameValuePair("accountId", accountId));
-        }
-        else {
+        } else {
             logger.warn("accountId is empty");
         }
         params.add(new BasicNameValuePair("eventId", param1));
@@ -84,14 +80,11 @@ public class SendRequestAction implements ActionExecutor {
                 logger.error("Error with the API response.");
                 return EventService.NO_CHANGE;
             }
-        }
-        catch(ConnectTimeoutException e) {
-        	logger.error("Error with the Http Request execution. Response timed out.", e);
-        }
-        catch (IOException e) {
+        } catch (ConnectTimeoutException e) {
+            logger.error("Error with the Http Request execution. Response timed out.", e);
+        } catch (IOException e) {
             logger.error("Error with the Http Request execution. Wrong parameters given", e);
-        }
-        finally {
+        } finally {
             if (response != null) {
                 EntityUtils.consumeQuietly(response.getEntity());
             }
