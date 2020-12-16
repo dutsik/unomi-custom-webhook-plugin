@@ -73,6 +73,7 @@ public class SendRequestAction implements ActionExecutor {
             httpPost.setEntity(new UrlEncodedFormEntity(params));
         } catch (UnsupportedEncodingException e) {
             logger.error("Unsupported encoding.", e);
+            return EventService.NO_CHANGE;
         }
         CloseableHttpResponse response = null;
         try {
@@ -84,8 +85,10 @@ public class SendRequestAction implements ActionExecutor {
             }
         } catch (ConnectTimeoutException e) {
             logger.error("Error with the Http Request execution. Response timed out.", e);
+            return EventService.NO_CHANGE;
         } catch (IOException e) {
             logger.error("Error with the Http Request execution. Wrong parameters given", e);
+            return EventService.NO_CHANGE;
         } finally {
             if (response != null) {
                 EntityUtils.consumeQuietly(response.getEntity());
