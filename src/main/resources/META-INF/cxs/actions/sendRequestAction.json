@@ -1,8 +1,23 @@
-﻿{
-  "id": "sendRequestAction",
-  "actionExecutor": "sendRequest",
+{
+  "metadata": {
+    "id": "sendRequestAction",
+    "name": "sendRequestAction",
   "systemTags": [
     "event"
   ],
-  "parameters": []
+  "readOnly": true
+  },
+  "actionExecutor": "sendRequest",
+  "parameters": [
+    {
+      "id": "webhookName",
+      "type": "string",
+      "multivalued": false
+    }
+{
+      "id": "propertyName",
+      "type": "string",
+      "multivalued": false
+    }
+  ]
 }

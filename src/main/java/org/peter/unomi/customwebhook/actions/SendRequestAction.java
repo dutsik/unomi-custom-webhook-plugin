@@ -46,6 +46,7 @@ public class SendRequestAction implements ActionExecutor {
             logger.warn("customWebhookUrlBase is empty.");
             return EventService.NO_CHANGE;
         }
+        webhookName = action.getParameterValues().get("webhookName").toString();
         if (webhookName == null) {
             webhookName = "default";
             logger.warn("webhookName is empty. Using default webhook");
@@ -53,7 +54,8 @@ public class SendRequestAction implements ActionExecutor {
         if (!customWebhookUrlBase.endsWith("/")) {
             customWebhookUrlBase += "/";
         }
-        String accountId = (String) event.getProperty("accountId");
+        String propertyName = action.getParameterValues().get("propertyName").toString();
+        String propertyValue = event.getProperty(propertyName).toString();
         String eventId = event.getItemId();
         String hash = "35454B055CC325EA1AF2126E27707052";
         String md5Hex = DigestUtils.md5Hex(eventId).toUpperCase();
@@ -61,8 +63,8 @@ public class SendRequestAction implements ActionExecutor {
         url = customWebhookUrlBase + webhookName;
         final HttpPost httpPost = new HttpPost(url);
         final List<NameValuePair> params = new ArrayList<>();
-        if (accountId != null) {
-            params.add(new BasicNameValuePair("accountId", accountId));
+        if (propertyValue != null) {
+            params.add(new BasicNameValuePair(propertyName, propertyValue));
         } else {
             logger.warn("accountId is empty");
         }
