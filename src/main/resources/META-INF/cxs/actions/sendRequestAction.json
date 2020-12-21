@@ -12,12 +12,20 @@
     {
       "id": "webhookName",
       "type": "string",
-      "multivalued": false
-    }
-{
+      "multivalued": false,
+      "defaultValue": null
+    },
+    {
       "id": "propertyName",
       "type": "string",
-      "multivalued": false
+      "multivalued": false,
+      "defaultValue": null
+    },
+    {
+      "id": "propertyValue",
+      "type": "string",
+      "multivalued": false,
+      "defaultValue": null
     }
   ]
 }

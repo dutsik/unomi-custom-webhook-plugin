@@ -5,12 +5,12 @@
 	<!-- cfg configuration -->
 	<cm:property-placeholder persistent-id="org.peter.unomi.customwebhook" update-strategy="reload">
 		<cm:default-properties>
-			<cm:property name="customwebhook.url.base" value="" />
-			<cm:property name="unomi.elasticsearch.index.preafix" value="" />
+			<cm:property name="webhook.url.base" value="http://api" />
 		</cm:default-properties>
 	</cm:property-placeholder>
-
-	<reference id="profileService" interface="org.apache.unomi.api.services.ProfileService" />
+	<!-- cfg configuration -->
+	<cm:property-placeholder persistent-id="org.apache.unomi.persistence.elasticsearch" placeholder-prefix="{{" placeholder-suffix="}}"  update-strategy="reload">
+	</cm:property-placeholder>
 
 	<!-- Action executor -->
 	<service id="sendRequestAction" interface="org.apache.unomi.api.actions.ActionExecutor">
@@ -18,8 +18,8 @@
 			<entry key="actionExecutorId" value="sendRequest" />
 		</service-properties>
 		<bean class="org.peter.unomi.customwebhook.actions.SendRequestAction">
-			<property name="customWebhookUrlBase" value="${customwebhook.url.base}"/>
-			<property name="unomi.elasticSearch.index.prefix" value="${env:UNOMI_ELASTICSEARCH_INDEXPREFIX:-context}"/>
+			<property name="customWebhookUrlBase" value="${webhook.url.base}"/>
+			<property name="unomiElasticSearchIndexPrefix" value="{{index.prefix}}"/>
 		</bean>
 	</service>
 </blueprint>
