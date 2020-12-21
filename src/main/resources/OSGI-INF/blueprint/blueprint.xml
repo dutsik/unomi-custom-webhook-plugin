@@ -1,16 +1,13 @@
-﻿<blueprint xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-		   xmlns:cm="http://aries.apache.org/blueprint/xmlns/blueprint-cm/v1.1.0"
-		   xmlns="http://www.osgi.org/xmlns/blueprint/v1.0.0"
-		   xsi:schemaLocation="http://www.osgi.org/xmlns/blueprint/v1.0.0 http://www.osgi.org/xmlns/blueprint/v1.0.0/blueprint.xsd">
+﻿<blueprint xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:cm="http://aries.apache.org/blueprint/xmlns/blueprint-cm/v1.1.0" xmlns="http://www.osgi.org/xmlns/blueprint/v1.0.0" xsi:schemaLocation="http://www.osgi.org/xmlns/blueprint/v1.0.0 http://www.osgi.org/xmlns/blueprint/v1.0.0/blueprint.xsd">
 	<!-- cfg configuration -->
 	<cm:property-placeholder persistent-id="org.peter.unomi.customwebhook" update-strategy="reload">
 		<cm:default-properties>
 			<cm:property name="webhook.url.base" value="http://api" />
+			<cm:property name="webhook.hash" value="" />
 		</cm:default-properties>
 	</cm:property-placeholder>
 	<!-- cfg configuration -->
-	<cm:property-placeholder persistent-id="org.apache.unomi.persistence.elasticsearch" placeholder-prefix="{{" placeholder-suffix="}}"  update-strategy="reload">
-	</cm:property-placeholder>
+	<cm:property-placeholder persistent-id="org.apache.unomi.persistence.elasticsearch" placeholder-prefix="{{" placeholder-suffix="}}" update-strategy="reload"></cm:property-placeholder>
 
 	<!-- Action executor -->
 	<service id="sendRequestAction" interface="org.apache.unomi.api.actions.ActionExecutor">
@@ -18,8 +15,9 @@
 			<entry key="actionExecutorId" value="sendRequest" />
 		</service-properties>
 		<bean class="org.peter.unomi.customwebhook.actions.SendRequestAction">
-			<property name="customWebhookUrlBase" value="${webhook.url.base}"/>
-			<property name="unomiElasticSearchIndexPrefix" value="{{index.prefix}}"/>
+			<property name="customWebhookUrlBase" value="${webhook.url.base}" />
+			<property name="hash" value="${webhook.hash}" />
+			<property name="unomiElasticSearchIndexPrefix" value="{{index.prefix}}" />
 		</bean>
 	</service>
 </blueprint>

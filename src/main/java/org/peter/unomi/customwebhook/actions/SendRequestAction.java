@@ -26,6 +26,7 @@ import org.slf4j.LoggerFactory;
 
 public class SendRequestAction implements ActionExecutor {
     private String customWebhookUrlBase = null;
+    private String hash = null;
     private static final Logger logger = LoggerFactory.getLogger(SendRequestAction.class);
     private CloseableHttpClient httpClient;
     private String unomiElasticSearchIndexPrefix = null;
@@ -43,6 +44,10 @@ public class SendRequestAction implements ActionExecutor {
 
         if (this.customWebhookUrlBase == null) {
             logger.error("customWebhookUrlBase is empty.");
+            return EventService.NO_CHANGE;
+        }
+        if (this.hash == null) {
+            logger.error("hash is empty.");
             return EventService.NO_CHANGE;
         }
         Object webhookNameProperty = action.getParameterValues().get("webhookName");
@@ -64,7 +69,6 @@ public class SendRequestAction implements ActionExecutor {
 
         String eventId = event.getItemId();
 
-        String hash = "35454B055CC325EA1AF2126E27707052";
         String md5Hex = DigestUtils.md5Hex(eventId + hash).toUpperCase();
 
         String url = this.customWebhookUrlBase + webhookName;
