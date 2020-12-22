@@ -1,0 +1,69 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+	<properties>
+		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+	</properties>
+	<parent>
+		<groupId>org.peter.unomi</groupId>
+		<artifactId>custom-webhook</artifactId>
+		<version>0.0.4-SNAPSHOT</version>
+	</parent>
+
+
+	<artifactId>unomi-custom-webhook-plugin-karaf-kar</artifactId>
+	<packaging>kar</packaging>
+
+	<name>unomi custom webhook plugin</name>
+
+
+	<dependencies>
+		<dependency>
+			<groupId>org.apache.unomi</groupId>
+			<artifactId>unomi-api</artifactId>
+			<version>1.5.4</version>
+			<scope>provided</scope>
+		</dependency>
+		<dependency>
+			<groupId>org.apache.httpcomponents</groupId>
+			<artifactId>httpclient-osgi</artifactId>
+			<scope>provided</scope>
+		</dependency>
+		<!-- https://mvnrepository.com/artifact/commons-codec/commons-codec -->
+		<dependency>
+			<groupId>commons-codec</groupId>
+			<artifactId>commons-codec</artifactId>
+			<version>1.10</version>
+		</dependency>
+<dependency>
+<groupId>org.peter.unomi</groupId>
+<artifactId>unomi-custom-webhook-plugin-core</artifactId>
+<version>${project.version}</version>
+</dependency>
+	</dependencies>
+	<build>
+<pluginManagement>
+<plugins>
+<plugin>
+<groupId>org.apache.karaf.tooling</groupId>
+<artifactId>karaf-maven-plugin</artifactId>
+<extensions>true</extensions>
+<configuration>
+<includeTransitiveDependency>false</includeTransitiveDependency>
+</configuration>
+</plugin>
+</plugins>
+</pluginManagement>
+<plugins>
+<plugin>
+<groupId>org.apache.karaf.tooling</groupId>
+<artifactId>karaf-maven-plugin</artifactId>
+<configuration>
+<startLevel>85</startLevel>
+</configuration>
+</plugin>
+</plugins>
+	</build>
+</project>

@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<features xmlns="http://karaf.apache.org/xmlns/features/v1.2.1" name="unomi-custom-webhook-karaf-feature">
+<feature name="unomi-custom-webhook-karaf-kar" version="${project.version}">
+<configfile finalname="/etc/org.peter.unomi.customwebhook.cfg">mvn:org.peter.unomi/custom-webhook-core/${project.version}/cfg/customwebhookcfg</configfile>
+<bundle start-level="85">mvn:org.apache.httpcomponents/httpcore-osgi/${httpcore-osgi.version}</bundle>
+<bundle start-level="85">mvn:org.apache.httpcomponents/httpclient-osgi/${httpclient-osgi.version}</bundle>
+<bundle start-level="85">mvn:org.peter.unomi/unomi-custom-webhook-plugin-core/${project.version}</bundle>
+</feature>
+</features>
