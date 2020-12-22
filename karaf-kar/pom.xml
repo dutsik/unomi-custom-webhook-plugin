@@ -13,7 +13,7 @@
 	</parent>
 
 
-	<artifactId>unomi-custom-webhook-plugin-karaf-kar</artifactId>
+	<artifactId>custom-webhook-karaf-kar</artifactId>
 	<packaging>kar</packaging>
 
 	<name>unomi custom webhook plugin</name>
