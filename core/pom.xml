@@ -9,14 +9,14 @@
 	<parent>
 		<groupId>org.peter.unomi</groupId>
 		<artifactId>custom-webhook</artifactId>
-		<version>0.0.4-SNAPSHOT</version>
+		<version>0.0.7-SNAPSHOT</version>
 	</parent>
 
 
 	<artifactId>custom-webhook-core</artifactId>
 	<packaging>bundle</packaging>
 
-	<name>unomi custom webhook</name>
+	<name>Apache Unomi :: Extensions :: Webhook Action :: Core</name>
 
 
 	<dependencies>

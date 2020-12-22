@@ -7,7 +7,8 @@
 		</cm:default-properties>
 	</cm:property-placeholder>
 	<!-- cfg configuration -->
-	<cm:property-placeholder persistent-id="org.apache.unomi.persistence.elasticsearch" placeholder-prefix="{{" placeholder-suffix="}}" update-strategy="reload"></cm:property-placeholder>
+	<cm:property-placeholder persistent-id="org.apache.unomi.persistence.elasticsearch" placeholder-prefix="{{"
+							 placeholder-suffix="}}" update-strategy="reload"/>
 
 	<!-- Action executor -->
 	<service id="sendRequestAction" interface="org.apache.unomi.api.actions.ActionExecutor">

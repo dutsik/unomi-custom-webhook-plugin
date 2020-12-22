@@ -123,6 +123,9 @@ public class SendRequestAction implements ActionExecutor {
     public void setCustomWebhookUrlBase(String customWebhookUrlBase) {
         this.customWebhookUrlBase = customWebhookUrlBase;
     }
+    public void setHash(String hash) {
+        this.hash = hash;
+    }
     public void setUnomiElasticSearchIndexPrefix(String unomiElasticSearchIndexPrefix) {
         this.unomiElasticSearchIndexPrefix = unomiElasticSearchIndexPrefix;
     }

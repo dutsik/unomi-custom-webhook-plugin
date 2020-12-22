@@ -1,4 +1,5 @@
 /.idea
+*.iml
 /core/target
 /karaf-kar/target
 /.settings
