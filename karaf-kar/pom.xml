@@ -39,7 +39,7 @@
 		</dependency>
 <dependency>
 <groupId>org.peter.unomi</groupId>
-<artifactId>unomi-custom-webhook-plugin-core</artifactId>
+<artifactId>custom-webhook-core</artifactId>
 <version>${project.version}</version>
 </dependency>
 	</dependencies>

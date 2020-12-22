@@ -4,6 +4,6 @@
 <configfile finalname="/etc/org.peter.unomi.customwebhook.cfg">mvn:org.peter.unomi/custom-webhook-core/${project.version}/cfg/customwebhookcfg</configfile>
 <bundle start-level="85">mvn:org.apache.httpcomponents/httpcore-osgi/${httpcore-osgi.version}</bundle>
 <bundle start-level="85">mvn:org.apache.httpcomponents/httpclient-osgi/${httpclient-osgi.version}</bundle>
-<bundle start-level="85">mvn:org.peter.unomi/unomi-custom-webhook-plugin-core/${project.version}</bundle>
+<bundle start-level="85">mvn:org.peter.unomi/custom-webhook-core/${project.version}</bundle>
 </feature>
 </features>
