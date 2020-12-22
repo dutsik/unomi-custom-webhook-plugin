@@ -1,2 +1,7 @@
 /.idea
+/core/target
+/karaf-kar/target
+/.settings
 /target
+/.classpath
+/.project
