@@ -36,7 +36,8 @@ public class SendRequestAction implements ActionExecutor {
 
         logger.info("Start webhook action.");
         if (httpClient == null) {
-            int timeout = 1;
+            // TODO can be configurable depends on behavior of the request.
+            int timeout = 10;
             RequestConfig requestConfig = RequestConfig.custom().setConnectTimeout(timeout * 1000)
                     .setConnectionRequestTimeout(timeout * 1000).setSocketTimeout(timeout * 1000).build();
             httpClient = HttpClientBuilder.create().setDefaultRequestConfig(requestConfig).build();
