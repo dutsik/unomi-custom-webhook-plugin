@@ -14,7 +14,7 @@
 
     <groupId>org.peter.unomi</groupId>
     <artifactId>custom-webhook</artifactId>
-    <version>0.0.8</version>
+    <version>0.0.8-SNAPSHOT</version>
     <packaging>pom</packaging>
 
     <name>Apache Unomi :: Extensions :: Webhook Action</name>
