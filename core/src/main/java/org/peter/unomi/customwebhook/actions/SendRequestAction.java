@@ -1,11 +1,8 @@
 package org.peter.unomi.customwebhook.actions;
 
-import java.io.IOException;
-import java.io.UnsupportedEncodingException;
-import java.net.SocketTimeoutException;
-import java.util.ArrayList;
-import java.util.List;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import org.apache.commons.codec.digest.DigestUtils;
 import org.apache.http.NameValuePair;
 import org.apache.http.client.config.RequestConfig;
@@ -21,11 +18,19 @@ import org.apache.unomi.api.Event;
 import org.apache.unomi.api.actions.Action;
 import org.apache.unomi.api.actions.ActionExecutor;
 import org.apache.unomi.api.services.EventService;
+import org.apache.unomi.persistence.spi.CustomObjectMapper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import java.io.IOException;
+import java.io.UnsupportedEncodingException;
+import java.net.SocketTimeoutException;
+import java.util.ArrayList;
+import java.util.List;
+
 public class SendRequestAction implements ActionExecutor {
     private String customWebhookUrlBase = null;
+    private Integer timeout = 1;
     private String hash = null;
     private static final Logger logger = LoggerFactory.getLogger(SendRequestAction.class);
     private CloseableHttpClient httpClient;
@@ -36,7 +41,6 @@ public class SendRequestAction implements ActionExecutor {
 
         logger.info("Start webhook action.");
         if (httpClient == null) {
-            int timeout = 1;
             RequestConfig requestConfig = RequestConfig.custom().setConnectTimeout(timeout * 1000)
                     .setConnectionRequestTimeout(timeout * 1000).setSocketTimeout(timeout * 1000).build();
             httpClient = HttpClientBuilder.create().setDefaultRequestConfig(requestConfig).build();
@@ -85,8 +89,14 @@ public class SendRequestAction implements ActionExecutor {
         if (this.unomiElasticSearchIndexPrefix != null) {
             params.add(new BasicNameValuePair("prefix", this.unomiElasticSearchIndexPrefix));
         }
-
+        ObjectMapper objectMapper = CustomObjectMapper.getObjectMapper();
+        try {
+            params.add(new BasicNameValuePair("event", objectMapper.writeValueAsString(event)));
+        } catch (JsonProcessingException e) {
+            logger.error("Error while decoding Event into JSON.", e);
+        }
         params.add(new BasicNameValuePair("eventId", eventId));
+        params.add(new BasicNameValuePair("checkSum", md5Hex));
         params.add(new BasicNameValuePair("checkSum", md5Hex));
         if (logger.isDebugEnabled()) {
             logger.debug("webhook Url {}", url);
@@ -130,4 +140,7 @@ public class SendRequestAction implements ActionExecutor {
         this.unomiElasticSearchIndexPrefix = unomiElasticSearchIndexPrefix;
     }
 
+    public void setTimeout(Integer timeout) {
+        this.timeout = timeout;
+    }
 }
